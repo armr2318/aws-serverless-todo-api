@@ -22,13 +22,13 @@ export const handler = async (event) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "Task deleted successfully." }),
+      body: JSON.stringify({ message: `Task ${taskId} deleted.` }),
     };
   } catch (error) {
-    console.error("Error deleting task:", error);
+    console.error("deleteTask error:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Could not delete task." }),
+      body: JSON.stringify({ error: "Failed to delete task." }),
     };
   }
 };
