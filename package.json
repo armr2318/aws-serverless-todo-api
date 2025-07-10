@@ -1,0 +1,12 @@
+{
+  "name": "aws-serverless-todo-api",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {},
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.500.0",
+    "@aws-sdk/util-dynamodb": "^3.500.0",
+    "uuid": "^9.0.0"
+  }
+}
