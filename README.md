@@ -1,31 +1,35 @@
 # AWS Serverless To-Do List API
 
-This project is a fully serverless REST API built on AWS using CloudFormation and the Serverless Application Model (SAM). It provides basic CRUD operations for managing tasks in a DynamoDB table via Lambda functions and API Gateway.
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/armr2318/aws-serverless-todo-api?style=social)](https://github.com/armr2318/aws-serverless-todo-api/stargazers)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](#)
+
+A fully serverless REST API for managing a to-do list using AWS Lambda, API Gateway, and DynamoDB — deployed with AWS SAM and defined entirely in infrastructure-as-code.
 
 ---
 
-## Features
+##  Features
 
-- **GET /tasks** — Retrieve all tasks
-- **POST /tasks** — Add a new task
-- **DELETE /tasks/{id}** — Delete a task by ID
-- Stateless and fully managed infrastructure
-- Infrastructure as Code via AWS CloudFormation
-
----
-
-## Technologies Used
-
-- **AWS Lambda** (Node.js runtime)
-- **Amazon API Gateway**
-- **Amazon DynamoDB**
-- **AWS SAM / CloudFormation**
-- **IAM**, **CloudWatch**
+- `GET /tasks` – Retrieve all tasks
+- `POST /tasks` – Create a new task
+- `DELETE /tasks/{taskId}` – Delete a task by its ID
+- Fully managed, scalable, and pay-as-you-go infrastructure
 
 ---
 
-## Project Structure
+##  Built With
 
+- **AWS Lambda** – Serverless compute
+- **Amazon API Gateway** – RESTful API access
+- **Amazon DynamoDB** – NoSQL task storage
+- **AWS CloudFormation / SAM** – Infrastructure as Code (IaC)
+- **Node.js (ES Modules)** – Runtime for Lambda functions
+
+---
+
+##  Project Structure
+
+```text
 aws-serverless-todo-api/
 │
 ├── functions/
@@ -38,27 +42,78 @@ aws-serverless-todo-api/
 ├── .gitignore              # Ignore files like node_modules and .env
 └── README.md               # Project documentation
 
----
+ Architecture Diagram
 
-##  How to Deploy
++----------------------------+
+|        API Gateway         |
+|   (GET, POST, DELETE)      |
++------------+---------------+
+             |
+             v
++----------------------------+
+|         AWS Lambda         |
+|   (getTasks, addTask, etc) |
++------------+---------------+
+             |
+             v
++----------------------------+
+|        DynamoDB Table      |
+|         TasksTable         |
++----------------------------+
 
-### Prerequisites
 
-- AWS CLI and AWS SAM CLI installed
-- AWS credentials configured (`aws configure`)
-- An S3 bucket for SAM deployment packaging
-- An existing DynamoDB table (or define one in the template)
+Deployment Guide
+Prerequisites
 
-### Deploy Steps
+    AWS CLI and AWS SAM CLI
 
-```bash
-# 1. Package and deploy using SAM
+    AWS credentials configured (aws configure)
+
+    An S3 bucket for deployment packaging (SAM will prompt you)
+
+One-Time Setup
+
 sam build
 sam deploy --guided
-Follow the prompts:
 
-    Stack name: serverless-todo-api
+Respond to prompts:
 
-    Region: us-east-1 (or your choice)
+    Stack Name: serverless-todo-api
 
-    Accept default capabilities and confirm deploymen
+    AWS Region: us-east-1 (or your preferred region)
+
+    Accept defaults and save config file for reuse
+
+ API Endpoints
+Method	Endpoint	Description
+GET	/tasks	Get all tasks
+POST	/tasks	Add new task
+DELETE	/tasks/{taskId}	Delete task by ID
+
+Test using curl or Postman:
+
+curl https://<api-id>.execute-api.<region>.amazonaws.com/Prod/tasks
+
+ Cleanup
+
+To avoid ongoing AWS charges, delete the stack:
+
+aws cloudformation delete-stack --stack-name serverless-todo-api
+
+ Notes
+
+    This project is eligible for the AWS Free Tier
+
+    Use environment variables and IAM roles securely (no hardcoded credentials)
+
+    Can be extended with PUT (edit task), auth via AWS Cognito, or task completion flags
+
+ Resources
+
+    AWS SAM Documentation
+
+    AWS SDK for JavaScript v3
+
+    Amazon DynamoDB
+
+    Postman API Testing
