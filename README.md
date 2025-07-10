@@ -1,9 +1,5 @@
 # AWS Serverless To-Do List API
 
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/armr2318/aws-serverless-todo-api?style=social)](https://github.com/armr2318/aws-serverless-todo-api/stargazers)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](#)
-
 A fully serverless REST API for managing a to-do list using AWS Lambda, API Gateway, and DynamoDB — deployed with AWS SAM and defined entirely in infrastructure-as-code.
 
 ---
