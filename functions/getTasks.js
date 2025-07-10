@@ -5,22 +5,21 @@ const db = new DynamoDBClient();
 
 export const handler = async () => {
   try {
-    const result = await db.send(new ScanCommand({
+    const data = await db.send(new ScanCommand({
       TableName: process.env.TABLE_NAME,
     }));
 
-    const items = result.Items.map(item => unmarshall(item));
+    const tasks = data.Items.map(item => unmarshall(item));
 
     return {
       statusCode: 200,
-      body: JSON.stringify(items),
+      body: JSON.stringify(tasks),
     };
   } catch (error) {
-    console.error("Error scanning table:", error);
+    console.error("getTasks error:", error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Could not fetch tasks." }),
+      body: JSON.stringify({ error: "Failed to fetch tasks." }),
     };
   }
 };
-
