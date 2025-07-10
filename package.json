@@ -1,8 +1,9 @@
 {
   "name": "aws-serverless-todo-api",
   "version": "1.0.0",
-  "type": "module",
+  "description": "Serverless To-Do List API using Lambda, API Gateway, and DynamoDB",
   "main": "index.js",
+  "type": "module",
   "scripts": {},
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.500.0",
@@ -10,3 +11,4 @@
     "uuid": "^9.0.0"
   }
 }
+Add package.json for Lambda dependencies
