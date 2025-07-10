@@ -1,3 +1,24 @@
+# Node.js
 node_modules/
-.env
+npm-debug.log*
+package-lock.json
+
+# AWS SAM build artifacts
+.aws-sam/
+
+# VS Code settings
+.vscode/
+
+# OS-specific junk
 .DS_Store
+Thumbs.db
+
+# dotenv / local config
+.env
+.env.*
+
+# Logs
+*.log
+
+# Lambda layers (if any)
+layers/
