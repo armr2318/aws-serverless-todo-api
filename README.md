@@ -27,14 +27,16 @@ This project is a fully serverless REST API built on AWS using CloudFormation an
 ## Project Structure
 
 aws-serverless-todo-api/
+│
 ├── functions/
 │ ├── getTasks.js # Lambda for GET /tasks
 │ ├── addTask.js # Lambda for POST /tasks
-│ └── deleteTask.js # Lambda for DELETE /tasks/{id}
-├── template.yaml # CloudFormation template (SAM format)
-├── deploy.sh # Deployment script using AWS CLI
-├── README.md # Project documentation
-└── .gitignore # Ignore node_modules, credentials, etc.
+│ └── deleteTask.js # Lambda for DELETE /tasks/{taskId}
+│
+├── template.yaml # CloudFormation (SAM) template
+├── deploy.sh # Shell script to deploy the stack
+├── .gitignore # Ignore files like node_modules and .env
+└── README.md # Project documentation (you’re here!)
 
 ---
 
