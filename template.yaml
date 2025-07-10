@@ -1,0 +1,80 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Serverless To-Do API using API Gateway, Lambda, and DynamoDB
+
+Globals:
+  Function:
+    Runtime: nodejs18.x
+    Timeout: 10
+    MemorySize: 128
+    Tracing: Active
+    Environment:
+      Variables:
+        TABLE_NAME: TasksTable
+
+Resources:
+
+  TasksTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: TasksTable
+      AttributeDefinitions:
+        - AttributeName: taskId
+          AttributeType: S
+      KeySchema:
+        - AttributeName: taskId
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  GetTasksFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: functions/getTasks.handler
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: TasksTable
+      Events:
+        GetTasksApi:
+          Type: Api
+          Properties:
+            Path: /tasks
+            Method: GET
+
+  AddTaskFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: functions/addTask.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: TasksTable
+      Events:
+        AddTaskApi:
+          Type: Api
+          Properties:
+            Path: /tasks
+            Method: POST
+
+  DeleteTaskFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: functions/deleteTask.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: TasksTable
+      Events:
+        DeleteTaskApi:
+          Type: Api
+          Properties:
+            Path: /tasks/{taskId}
+            Method: DELETE
+
+Outputs:
+
+  ApiEndpoint:
+    Description: "API Gateway endpoint"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod"
+  
+  TableName:
+    Description: "DynamoDB table name"
+    Value: !Ref TasksTable
